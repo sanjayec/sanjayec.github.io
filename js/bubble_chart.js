@@ -6,34 +6,35 @@ function bubbleChart() {
     var center = {x: width / 2, y: height / 2};
 
     var regionCenters = {
-        AP: {x: 3 * width / 16, y: height / 3},
-        AS: {x: width / 3.7, y: 2 * height / 3},
-        EE: {x: 3 * width / 8, y: height / 3},
-        WE: {x: width / 2, y: 2 * height / 3.05},
-        ME: {x: 5 * width / 7.5, y: height / 3},
-        NA: {x: 2 * width / 2.75, y: 2 * height / 3},
-        LA: {x: 13 * width / 15, y: height / 3}
+        hatchback: {x: 3 * width / 16, y: height / 3},
+        convertible: {x: width / 3.7, y: 3.5 * height / 6},
+        sedan: {x: 3 * width / 8, y: height / 3},
+        wagon: {x: 1.2 * width / 2, y: 1.8 * height / 3},
+        hardtop: {x: 5 * width / 7.5, y: height / 3}
+        
+        
     };
 
     var regionTitles = {
-        AP: {x: width / 10, y: height / 8},
-        AS: {x: 9 * width / 39, y: 9 * height / 15},
-        EE: {x: 7 * width / 20, y: height / 8},
-        WE: {x: width / 2, y: 9 * height / 17},
-        ME: {x: 13 * width / 20, y: height / 8},
-        NA: {x: 31 * width / 41, y: 9 * height / 15},
-        LA: {x: 8 * width / 9, y: height / 8}
+        hatchback: {x: width / 10, y: height / 8},
+        convertible: {x: 9 * width / 39, y: 9 * height / 15},
+        sedan: {x: 7 * width / 20, y: height / 12},
+        wagon: {x: 1.3 * width / 2, y: 8.9 * height / 17},
+        hardtop: {x: 14 * width / 19, y: height / 5}
+        
+        
     };
 
-    var productCenters = {
-        Apparel: {x: 3 * width / 16, y: height / 3.9},
-        Footwear: {x: width / 3, y: 2 * height / 4.2},
-        Sportswear: {x: 3 * width / 6.5, y: height / 3.9}
+    var productCenters = { 
+       fwd: {x: 3 * width / 16, y: height / 3.7},
+        "4wd": {x: width / 3, y: 3 * height / 5},
+        rwd : {x: 3.5 * width / 6.5, y: height / 3.3}
+        
     };
-    var productTitles = {
-        Apparel: {x: 3 * width / 18.5, y: height / 20},
-        Footwear: {x: width / 3, y: 2 * height / 5.8},
-        Sportswear: {x: 3 * width / 6, y: height / 18}
+    var productTitles = { 
+        fwd: {x: 3 * width / 18.5, y: height / 19},
+        "4wd": {x: width / 3, y: 3.5 * height / 5.8},
+        rwd: {x: 3.5 * width / 6, y: height / 18}
     };
 
     var forceStrength = 0.03;
@@ -60,24 +61,26 @@ function bubbleChart() {
     function createNodes(rawData) {
 
         var maxAmount = d3.max(rawData, function (d) {
-            return +d.Growth_pct_2016_2017;
+            return +d.price;
         });
 
         var radiusScale = d3.scalePow()
-            .exponent(0.5)
+            .exponent(0.15)
             .range([2, 35])
             .domain([0, maxAmount]);
+
 
         var myNodes = rawData.map(function (d) {
             return {
                 id: d.id,
-                radius: radiusScale(+d.pct_2017),
-                growth_percent: +d.Growth_pct_2016_2017,
-                product: d.Subcategory,
-                brand: d.Global_Brand_Owner,
-                region: d.Region,
-                country: d.Country,
-                category: d.Category,
+                radius: radiusScale(+d["city-mpg"]),
+                growth_percent: +d["city-mpg"],
+                product: d["num-of-cylinders"],
+                brand: d["make"],
+                region: d["body-style"],
+                country: d["engine-location"],
+                category: d["drive-wheels"],
+                highwayMpg: d["highway-mpg"],
                 x: Math.random() * 900,
                 y: Math.random() * 800
             };
@@ -91,7 +94,7 @@ function bubbleChart() {
     }
 
 
-    var chart = function chart(selector, rawData) {
+    var chart = function (selector, rawData) {
         nodes = createNodes(rawData);
         bubble_svg = d3.select(selector)
             .append('svg')
@@ -220,27 +223,31 @@ function bubbleChart() {
             })
             .attr('text-anchor', 'middle')
             .text(function (d) {
-                if (d === 'AP'){
-                    return "Asia Pacific";
+                if (d === 'hatchback'){
+                    return "Hatchback";
                 }
-                else if (d === 'EE'){
-                    return "Eastern Europe";
+                else if (d === 'sedan'){
+                    return "Sedan";
                 }
-                else if (d === 'ME'){
-                    return "Middle East and Africa";
+                else if (d === 'hardtop'){
+                    return "Hard top";
                 }
-                else if (d === 'WE'){
-                    return "Western Europe";
+                else if (d === 'convertible'){
+                    return "Convertible";
                 }
-                else if (d === 'AS'){
-                    return "Australasia";
+                else if (d === 'wagon'){
+                    return "Wagon";
                 }
-                else if (d === 'LA'){
-                    return "Latin America";
+                else if (d === 'fwd'){
+                    return "Forward Wheel Drive";
                 }
-                else if (d === 'NA'){
-                    return "North America";
-                }else {
+                else if (d === '4wd'){
+                    return "Four Wheel Drive";
+                }
+                else if (d === 'rwd'){
+                    return "Rear Wheel Drive";
+                }
+                else {
                         return d;
                     }
 
@@ -249,16 +256,19 @@ function bubbleChart() {
 
     function showDetail(d) {
         d3.select(this).attr('stroke', 'black');
-        var content = '<span class="name">Brand: </span><span class="value">' +
+        var content = '<span class="name">Make: </span><span class="value">' +
             d.brand +
             '</span><br/>' +
-            '<span class="name">Product: </span><span class="value">' +
+            '<span class="name">Cylinders: </span><span class="value">' +
             d.product +
             '</span><br/>' +
-            '<span class="name">Growth Percent: </span><span class="value">' +
+            '<span class="name">City Mpg: </span><span class="value">' +
             addCommas(d.growth_percent) +
             '</span><br/>' +
-            '<span class="name">Category: </span><span class="value">' +
+            '<span class="name">Highway Mpg: </span><span class="value">' +
+            addCommas(d.highwayMpg) +
+            '</span><br/>' +
+            '<span class="name">Drive Wheels: </span><span class="value">' +
             d.category +
             '</span>';
 
@@ -326,6 +336,6 @@ function addCommas(nStr) {
     return x1 + x2;
 }
 
-d3.csv('data/market_share_d3.csv', display);
+d3.csv('data/Automobile_data.csv', display);
 
 setupButtons();

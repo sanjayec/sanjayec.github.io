@@ -3,14 +3,14 @@ const bubble_region_annotations = [
     {
         type: d3.annotationLabel,
         note: {
-            title: "Market Share by Region",
-            label: "Countries of Western Europe has the highest market share",
+            title: "Share by Bodystyle",
+            label: "Most vehicles are of Sedan type",
             wrap: 190
         },
-        x: 500,
-        y: 550,
-        dy: -160,
-        dx: -120
+        x: 380,
+        y: 350,
+        dy: 50,
+        dx: 50
     }];
 
 const bubble_region_makeAnnotations = d3.annotation()
@@ -21,14 +21,14 @@ const bubble_product_annotations = [
     {
         type: d3.annotationLabel,
         note: {
-            title: "Market Share by Product",
-            label: "Footwear got the highest market share compared to other products.",
+            title: "Share by Drive wheels",
+            label: "Most of the vehicles are of type Forward wheel drives",
             wrap: 190
         },
-        x: 280,
-        y: 520,
-        dy: -160,
-        dx: -130
+        x: 130,
+        y: 320,
+        dy: 80,
+        dx: -20
     }];
 
 const bubble_product_makeAnnotations = d3.annotation()

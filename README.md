@@ -1,12 +1,12 @@
-# karthiks33.github.io
-# cs498-ddv-final
+# sanjayec.github.io
+# Data Visualization
 D3.js visualization for CS498 Data Visualization - Narrative Visualization
 
 # Live Project
-This proejct is hosted live on Github Pages at [https://karthiks33.github.io/#](https://karthiks33.github.io/#).
+This project is hosted live on Github Pages at [https://sanjayec.github.io/#](https://sanjayec.github.io/#).
 
 # About the Visualization
-A d3 visualization on the market share across all the countires in the world for the products Apparel, Footswear and Sportwear for the period 2016-2017.
+Automobile data is visulized based different catogies and understand price model for each type.
 
 ## Recommended Settings
-ost of the visualizations use the canvas of 1024x768 pixels and henceforth,  the recommended viewing size of the interactive visualization is 1280x800 pixels.
+View Screen: 1280x800 px
