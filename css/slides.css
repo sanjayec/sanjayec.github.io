@@ -1,10 +1,16 @@
 .background_c {
-	background-image: url(../imgs/grey.png);
+	background-image: url(../imgs/bg3.jpg);
 	padding: 3% 0 0 0;
-        
 }
 
 #section0 {
-	background-image: url(../imgs/slide01.jpg);
-        
+	background: url(../imgs/img01.jpg) no-repeat center center ;
+        -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.header {
+    padding-left: 20px;
 }

@@ -8,5 +8,3 @@ This project is hosted live on Github Pages at [https://sanjayec.github.io/#](ht
 # About the Visualization
 Automobile data is visulized based different catogies and understand price model for each type.
 
-## Recommended Settings
-View Screen: 1280x800 px

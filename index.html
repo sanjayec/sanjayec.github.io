@@ -24,11 +24,11 @@
                 position: relative; 
             }
             #section0 {padding-top:50px;height: 800px; }
-            #section1 {padding-top:50px;height: 800px; }
+            #section1 {padding-top:50px;height: 800px;  }
             #section2 {padding-top:50px;height: 800px;}
             #section3 {padding-top:50px;height: 800px;}
             #section4 {padding-top:50px;height: 800px;}
-           
+
 
             .center{ display: block; margin-left: auto; margin-right: auto; width: 70%; }
         </style>
@@ -43,7 +43,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="#">Home</a>
+                    <a class="navbar-brand" href="#">Home</a> 
                 </div>
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
@@ -60,15 +60,15 @@
         </nav>    
 
         <div id="section0" class="container-fluid"   >
-            <h2>Narrative Visualization of Automobile data</h2>
+            <h2 class="header">Narrative Visualization of Automobile data</h2>
 
         </div>
-        <div id="section1" class="container-fluid" >
-            <h2>Categorization based on hierarchy Bodystyle, DriveWheels, Make</h2>
-            <div id="sunburst_content">
-                <table  border="0px">
+        <div id="section1" class="container-fluid background_c" >
+            <h2 class="header">Categorization based on hierarchy Bodystyle, DriveWheels, Make</h2>
+            <div id="sunburst_content" style="padding-top: 20px;">
+                <table  border="0px" >
 
-                    <tr height="450px">
+                    <tr height="450px" >
                         <td width="20%">
                             <div id="sunburst_text" class="info_text" >
                                 <p> Zoomable sunburst displays the count of vehicles in different categories in a hierarchical way.  <br/><br/>
@@ -92,8 +92,8 @@
             </div>
 
         </div>
-        <div id="section2" class="container-fluid">
-            <h2>Average Price vs Make, Body style </h2>
+        <div id="section2" class="container-fluid background_c">
+            <h2 class="header">Average Price vs Make, Body style </h2>
             <div id="zsb_content">
                 <table  border="0px">
 
@@ -119,8 +119,8 @@
             </div>
 
         </div>
-        <div id="section3" class="container-fluid">
-            <h2>Price Analysis</h2>
+        <div  id="section3" class="container-fluid background_c">
+            <h2 class="header">Price Analysis</h2>
             <div id="linechart_content">
                 <table border="0px">
 
@@ -147,10 +147,10 @@
 
                                 <tr class="center">
                                     <td>
-                                         <span class="">Select X-Axis measure</span>
+                                        <span class="">Select X-Axis measure</span>
                                     </td>
                                     <td style="padding-left: 10px">
-                                        
+
                                         <div class="btn-group " >
                                             <button id="horsepower" type="button" class="btn btn-primary">Horsepower</button>
                                             <button id="city-mpg" type="button" class="btn btn-primary">City-mpg</button>
@@ -170,30 +170,30 @@
 
             </div>
         </div>
-        <div id="section4" class="container-fluid">
-            <h2>Average Miles Per Gallon per Engine Type</h2>
-               
-                <table  border="0px">
+        <div id="section4" class="container-fluid background_c">
+            <h2 class="header">Average Miles Per Gallon per Engine Type</h2>
 
-                    <tr height="600px">
-                        <td width="20%">
-                            <div  class="info_text" >
-                                <p>Average MPG is shown per each engine-type in bar chart and also for each engine-type how city-mpg and highway-mpg varies can be seen in pie chart.<br/><br/>
-                                    Mouse over each bar to see the triggered city-mpg/highway-mpg division.<br/><br/>
-                                    Mouse over each angle of pie-chart to see the corresponding data in bar chart.
-                                </p>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="mc_container">
-                                 
-                            </div>
-                        </td>
-                    </tr>
-                </table>
- 
+            <table  border="0px">
+
+                <tr height="600px">
+                    <td width="20%">
+                        <div  class="info_text" >
+                            <p>Average MPG is shown per each engine-type in bar chart and also for each engine-type how city-mpg and highway-mpg varies can be seen in pie chart.<br/><br/>
+                                Mouse over each bar to see the triggered city-mpg/highway-mpg division.<br/><br/>
+                                Mouse over each angle of pie-chart to see the corresponding data in bar chart.
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="mc_container">
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
         </div>
-        
+
 
         <script type="text/javascript" src="js/tooltip.js"></script>
         <script type="text/javascript" src="js/annotations.js"></script>
