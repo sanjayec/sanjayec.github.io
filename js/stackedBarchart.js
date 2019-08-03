@@ -1,6 +1,6 @@
-
+function stackedBarchart(){
 var svg = d3.select("#stacked"),
-    margin = {top: 20, right: 10, bottom: 30, left: 40},
+    margin = {top: 20, right: 10, bottom: 30, left: 50},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -10,14 +10,16 @@ var x = d3.scaleBand()
     .rangeRound([0, width])
     .paddingInner(0.05)
     .align(0.1);
+var sc_tooltip = floatingTooltip('sc_tooltip', 240);
 
 // set y scale
 var y = d3.scaleLinear()
-    .range([height-50, 0]);
+    .range([height-60, 0]);
 
 // set the colors 
 var z = d3.scaleOrdinal()
     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
 
 // load the csv and create the chart
 d3.csv("data/Automobile_stacked.csv", function(d, i, columns) {
@@ -47,17 +49,29 @@ function(error, data) {
       .attr("y", function(d) { return y(d[1]); })
       .attr("height", function(d) { return y(d[0]) - y(d[1]); })
       .attr("width", x.bandwidth())
-    .on("mouseover", function() { tooltip.style("display", null); })
-    .on("mouseout", function() { tooltip.style("display", "none"); })
+    .on("mouseover", showSCDetail)
+    .on("mouseout", hideSCDetail)
     .on("mousemove", function(d) {
-      console.log(d);
-      var xPosition = d3.mouse(this)[0] - 5;
-      var yPosition = d3.mouse(this)[1] - 5;
-      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text(Math.round(d[1]-d[0]));
+
     });
 
-var heightForAxis = height + 60;
+
+function showSCDetail(d) {
+    var content = '<span class="name">Avg Price: </span><span class="value">' +
+       +Math.round(d[1]-d[0]) +
+        '</span><br/>' +
+        '<span class="name">Make : </span><span class="value">' +
+        d.data.Make + ""+
+        '</span>';
+    
+    sc_tooltip.showTooltip(content, d3.event);
+}
+
+
+function hideSCDetail(d) {
+    sc_tooltip.hideTooltip();
+}
+var heightForAxis = height - 60;
   g.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + heightForAxis  + ")")
@@ -100,24 +114,21 @@ var heightForAxis = height + 60;
       .attr("y", 9.5)
       .attr("dy", "0.32em")
       .text(function(d) { return d; });
+      
+      svg.append('text')
+                .attr('x', -200)
+                .attr('y', 10)
+                .attr('class', 'label')
+                .attr("transform", "rotate(-90)")
+                .text('Avg Price($)');
+        svg.append("g")
+            .attr("class", "annotation-group")
+            .attr("id", "stacked_chart_annotation")
+            .call(stacked_chart_makeAnnotations);
 }
         
  );
 
-  // Prep the tooltip bits, initial display is hidden
-  var tooltip = svg.append("g")
-    .attr("class", "tooltip")
-    .style("display", "none");
-      
-  tooltip.append("rect")
-    .attr("width", 60)
-    .attr("height", 20)
-    .attr("fill", "white")
-    .style("opacity", 0.5);
 
-  tooltip.append("text")
-    .attr("x", 30)
-    .attr("dy", "1.2em")
-    .style("text-anchor", "middle")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold");
+}
+stackedBarchart();

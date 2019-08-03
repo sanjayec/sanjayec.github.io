@@ -3,7 +3,7 @@
   } */
 
 :root {
-  --annotation-color: #006400;
+  --annotation-color: #000000;
 }
 
 /* #annotation_svg {
@@ -27,8 +27,8 @@
 }
 
 .annotation-note-title, text.title {
-  font-weight: bold;
-  font-size: 1.2em;
+  font-weight: normal;
+  font-size: 1.5em;
 }
 
 /* text.title {

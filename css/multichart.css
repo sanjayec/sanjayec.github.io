@@ -1,0 +1,30 @@
+
+#section4 path {  stroke: #fff; }
+#section4  path:hover {  opacity:0.9; }
+#section4  rect:hover {  fill:blue; }
+#section4  .axis {  font: 10px sans-serif; }
+#section4  .legend tr{    border-bottom:1px solid grey; }
+#section4  .legend tr:first-child{    border-top:1px solid grey; }
+
+#section4  .axis path,
+#section4  .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#section4  .x.axis path {  display: none; }
+#section4  .legend{
+    margin-bottom:76px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+#section4  .legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+#section4  .legendFreq, .legendPerc{
+    align:right;
+    width:50px;
+}

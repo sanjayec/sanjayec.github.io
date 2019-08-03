@@ -1,166 +1,206 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Narrative Visualization</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="lib/bootstrap.min.css">
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/bootstrap.min.js"></script>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> Narrative Visualization - Sanjaye2</title>
-	<meta name="author" content="Stanley Lee" />
-	<meta name="description" content="fullPage full-screen backgrounds." />
-	<meta name="keywords"  content="fullpage,jquery,demo,screen,fullscreen,backgrounds,full-screen" />
-	<meta name="Resource-type" content="Document" />
+        <script type="text/javascript" src="lib/d3.min.js"></script>
+        <script type="text/javascript" src="lib/d3.v3.js"></script>
+        <script type="text/javascript" src="lib/d3-annotation.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
-	<link rel="stylesheet" type="text/css" href="css/slides.css" />
-	<link rel="stylesheet" type="text/css" href="css/bubble_chart.css" />
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/zoomable_sunburst.css" />
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
-	<link rel="stylesheet" type="text/css" href="css/annotations.css" />
+        <link rel="stylesheet" type="text/css" href="css/slides.css" />
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/annotations.css" />
+        <link rel="stylesheet" type="text/css" href="css/sunburst.css" />
+        <link rel="stylesheet" type="text/css" href="css/scatter.css" />
+        <link rel="stylesheet" type="text/css" href="css/multichart.css" />
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:300,900' rel='stylesheet' type='text/css'>
+        <style>
+            body {
+                position: relative; 
+            }
+            #section0 {padding-top:50px;height: 800px; }
+            #section1 {padding-top:50px;height: 800px; }
+            #section2 {padding-top:50px;height: 800px;}
+            #section3 {padding-top:50px;height: 800px;}
+            #section4 {padding-top:50px;height: 800px;}
+           
 
+            .center{ display: block; margin-left: auto; margin-right: auto; width: 70%; }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
-		<script type="text/javascript">
-			 var console = { log: function() {} };
-		</script>
-	<![endif]-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="#">Home</a>
+                </div>
+                <div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#section1">Visual 1</a></li>
+                            <li><a href="#section2">Visual 2</a></li>
+                            <li><a href="#section3">Visual 3</a></li>
+                            <li><a href="#section4">Visual 4</a></li>
 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>    
 
-	<script type="text/javascript" src="js/d3.v3.js"></script>
+        <div id="section0" class="container-fluid"   >
+            <h2>Narrative Visualization of Automobile data</h2>
 
+        </div>
+        <div id="section1" class="container-fluid" >
+            <h2>Categorization based on hierarchy Bodystyle, DriveWheels, Make</h2>
+            <div id="sunburst_content">
+                <table  border="0px">
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.fullPage.js"></script>
+                    <tr height="450px">
+                        <td width="20%">
+                            <div id="sunburst_text" class="info_text" >
+                                <p> Zoomable sunburst displays the count of vehicles in different categories in a hierarchical way.  <br/><br/>
+                                    Total count is shown at the center, then divided based on body styles, then by driveWheels and then by Make.<br/><br/>
+                                    Mouseover on each region gives the count and category. <b>Click on each region</b> to drilldown further.
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="sunburst_container">
 
+                                <div id="zoomable_sunburst">
 
-	<script type="text/javascript" src="js/d3.min.js"></script>
-	<script type="text/javascript" src="js/d3-annotation.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#fullpage').fullpage({
-				verticalCentered: false,
-				navigation: true,
-				navigationPosition: 'right',
-			});});
-	</script>
-
-</head>
-<body>
-<div id="fullpage">
-	<div class="section" id="title">
-		<div id="title_text">
-			<h1>Automobile Data Visualization</h1>
-			<h3>Automobiles categorization based on drive-wheels i.e fwd/rwd/4wd </h3>
-		</div>
-	</div>
-	
-
-	<div class="section" id="background_bw">
-
-		<div id="bubble_content">
-			<table  border="0px">
-				<tr>
-					<td colspan="2">
-						<div id="bubble_title"><h1>Overview of Automobile Data</h1></div>
-					</td>
-
-				</tr>
-				<tr height="650px">
-					<td width="20%">
-						<div id="bubble_text">
-							<p> Bubble charts displays the automobile data by body style <b>Hatchback, Sedan, Wagon, Convertible and Hardtop </b>  <br/><br/>
-                                                            By bodystyle-wise <b>Sedan</b> has the highest share and by driveWheels-wise <b>Foward wheel drive</b> has the higher compared to rear and 4 wheel drive.
-								<br/><br/>Select Share by Body style to view charts based on body style and Share by Drive-wheels to view charts based on drive wheels.</p>
-						</div>
-					</td>
-					<td>
-						<div id="bubble_container">
-							<div id="toolbar">
-								<a href="#" id="all" class="button active">Overall Automobile Data</a>
-								<a href="#" id="region" class="button">Share by Body style</a>
-								<a href="#" id="product" class="button">Share by Drive-wheels</a>
-							</div>
-							<div id="vis"></div>
-						</div>
-					</td>
-				</tr>
-			</table>
-
-
-		</div>
-	</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
 
-	<div class="section" id="background_bw1">
+            </div>
 
-		<div id="zsb_content">
-			<table  border="0px">
-				<tr>
-					<td colspan="2">
-						<div id="zsb_title"><h1>Price vs Make, Body style </h1></div>
-					</td>
+        </div>
+        <div id="section2" class="container-fluid">
+            <h2>Average Price vs Make, Body style </h2>
+            <div id="zsb_content">
+                <table  border="0px">
 
-				</tr>
-				<tr height="650px">
-					<td width="20%">
-						<div id="zsb_text">
-							<p>Stacked bar chart displays the Average price distribution across body-styles for each make.<br/><br/>
-                                                            Price is shown on y-axis, Make on x-axis. Body style is integrated inside each bar.<br/><br/>
-                                                            Mouseover gives the details about each particular group.
-                                                           
-							</p>
-						</div>
-					</td>
-					<td>
-						<div id="zsb_container">
-							<div id="stackedbars">
+                    <tr height="700px">
+                        <td width="20%">
+                            <div id="zsb_text" class="info_text" >
+                                <p>Stacked bar chart displays the Average price distribution across body-styles for each make.<br/><br/>
+                                    Price is shown on y-axis, Make on x-axis. Body style is integrated inside each bar.<br/><br/>
+                                    Mouseover gives the details about each particular group.                                
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="zsb_container">
+                                <div id="stackedbars">
+                                    <svg id="stacked" width="1000" height="600"></svg></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+        </div>
+        <div id="section3" class="container-fluid">
+            <h2>Price Analysis</h2>
+            <div id="linechart_content">
+                <table border="0px">
+
+                    <tr>
+                        <td width="20%">
+                            <div id="scatter_text" class="info_text">
+                                <p>Scatter plot shows price variation based on different parameters. 
+                                    Price is on y-axis, Drive-wheels are shown using color.<br/><br/> 
+                                    <b>Select the x-axis of interest to do price analysis</b><br/><br/> 
+                                    <b>Legend can be clicked to highlight the data of that particular group</b> <br/><br/> 
+                                    <b>Mouseover on each bubble gives more details for that data point.</b>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>   
+                                        <div id="scatter_container">
+                                            <div id="scatter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="center">
+                                    <td>
+                                         <span class="">Select X-Axis measure</span>
+                                    </td>
+                                    <td style="padding-left: 10px">
+                                        
+                                        <div class="btn-group " >
+                                            <button id="horsepower" type="button" class="btn btn-primary">Horsepower</button>
+                                            <button id="city-mpg" type="button" class="btn btn-primary">City-mpg</button>
+                                            <button id="highway-mpg" type="button" class="btn btn-primary">Highway-mpg</button>
+                                            <button id="engine-size" type="button" class="btn btn-primary">Engine-size</button>
+                                            <button id="peak-rpm" type="button" class="btn btn-primary">Peak-rpm</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+        </div>
+        <div id="section4" class="container-fluid">
+            <h2>Average Miles Per Gallon per Engine Type</h2>
+               
+                <table  border="0px">
+
+                    <tr height="600px">
+                        <td width="20%">
+                            <div  class="info_text" >
+                                <p>Average MPG is shown per each engine-type in bar chart and also for each engine-type how city-mpg and highway-mpg varies can be seen in pie chart.<br/><br/>
+                                    Mouse over each bar to see the triggered city-mpg/highway-mpg division.<br/><br/>
+                                    Mouse over each angle of pie-chart to see the corresponding data in bar chart.
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="mc_container">
+                                 
+                            </div>
+                        </td>
+                    </tr>
+                </table>
  
-  <svg id="stacked" width="1100" height="600"></svg></div>
-						</div>
-					</td>
-				</tr>
-			</table>
+        </div>
+        
 
+        <script type="text/javascript" src="js/tooltip.js"></script>
+        <script type="text/javascript" src="js/annotations.js"></script>
+        <script type="text/javascript" src="js/sunburst.js"></script>
+        <script type="text/javascript" src="js/stackedBarchart.js"></script>
+        <script type="text/javascript" src="js/scatter.js"></script>
+        <script type="text/javascript" src="js/multichart.js"></script>
 
-		</div>
-	</div>
-
-	<div class="section" id="background_bw2">
-
-		<div id="linechart_content">
-			<table border="0px">
-				<tr>
-					<td colspan="2">
-						<div id="linechart_title"><h1>Market Share by Top Ten Countries</h1></div>
-					</td>
-
-				</tr>
-				<tr>
-					<td width="20%">
-						<div id="linechart_text">
-							<p>Bar chart displays the tope ten countries based on market share. <br/><br/> Move the mouse over the bar to get difference in percentages among the countries</p>
-						</div>
-					</td>
-					<td>
-						<div id="linechart_container">
-							<div id="scatter"></div>
-						</div>
-					</td>
-				</tr>
-			</table>
-
-
-		</div>
-	</div>
-
-	
-</div>
-
-<script type="text/javascript" src="js/tooltip.js"></script>
-<script type="text/javascript" src="js/bubbleChart.js"></script>
-<script type="text/javascript" src="js/stackedBarchart.js"></script> 
-<script type="text/javascript" src="js/barchart.js"></script>
-<script type="text/javascript" src="js/annotations.js"></script> 
-
-</body>
+    </body>
 </html>
