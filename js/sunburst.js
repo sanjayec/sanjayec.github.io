@@ -72,7 +72,13 @@ d3.csv("data/Automobile_data.csv", function (error, data) {
         .on('mouseover', showZSBDetail)
         .on('mouseout', hideZSBDetail);
 });
-
+setTimeout(showSAnnotation, 1000);
+function showSAnnotation(){
+    zsb_svg.append("g")
+            .attr("class", "annotation-group")
+            .attr("id", "sunburst_annotation")
+            .call(sunburst_makeAnnotations);
+}
 //zsb_svg.append("g")
 //            .attr("class", "annotation-group")
 //            .attr("id", "sunburst_annotation")
